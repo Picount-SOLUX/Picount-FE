@@ -1,0 +1,75 @@
+/* src/pages/StartingPage.css */
+/* 브라우저 기본 여백 제거 */
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.landing-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom, #FEBBB3, #FFF9DA);
+  font-family: 'KoddiUD OnGothic', sans-serif;
+}
+
+.content {
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.0); /* 투명한 느낌 유지 */
+  padding: 40px;
+  border-radius: 20px;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 700;
+  color: black;
+  font-style: "KoddiUD OnGothic";
+  /* margin-bottom: 30px; */
+}
+
+.vector-wrapper {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  display: inline-block;
+  margin: 5px;
+}
+
+/* 아래쪽 기준 이미지 */
+.vector-img {
+  width: 100%;
+  height: 100%;
+}
+
+/* 위에 살짝 걸치는 이미지 */
+.vector1-img {
+  position: absolute;
+  width: 22px; /* 작게 해서 '걸친' 느낌 */
+  height: 22px;
+  bottom: 30px; /* 아래로 조금 걸치게 */
+  right: -4px;  /* 오른쪽 밖으로 살짝 튀어나오게 */
+  z-index: 1;   /* 위에 뜨도록 */
+}
+
+button {
+  display: block;
+  width: 200px;
+  margin: 12px auto;
+  padding: 10px 0;
+  font-size: 16px;
+  font-weight: bold;
+  background: linear-gradient(to top, #FEBBB3, #FFFFFF);
+  border: 1px solid #DD938A;
+  box-shadow: #DB968E;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: 0.2s;
+}
+
+button:hover {
+  background: #ffe0e0;
+}

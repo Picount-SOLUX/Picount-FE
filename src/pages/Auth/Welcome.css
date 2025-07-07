@@ -1,0 +1,83 @@
+/* 전체 배경 */
+.welcome-page {
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(to bottom, #FEBBB3, #FFF9DA); /* 부드러운 배경 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+/* 중앙 카드 */
+.welcome-container {
+  background: linear-gradient(to bottom, #ffe0e0, #fff8e7);
+  border: 1px solid #d8aaaa;
+  border-radius: 10px;
+  padding: 40px 50px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  text-align: left;
+}
+
+/* 제목 */
+h1 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 20px;
+}
+
+.welcome-underline {
+  color: #222;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.nickname {
+  font-weight: bold;
+  color: #000;
+}
+
+/* 본문 */
+p {
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.subtext {
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 25px;
+}
+
+/* 강조된 부분 */
+.highlight {
+  color: #d34f4f;
+  font-weight: bold;
+}
+
+/* 버튼 */
+.welcome-button {
+  display: block;
+  width: 200px;
+  margin: 12px auto;
+  padding: 10px 0;
+  font-size: 16px;
+  font-weight: bold;
+  background: linear-gradient(to top, #FEBBB3, #FFFFFF);
+  border: 1px solid #DD938A;
+  box-shadow: #DB968E;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: 0.2s;
+}
+
+.join-button:hover {
+  background: #ffe0e0;
+}
+
