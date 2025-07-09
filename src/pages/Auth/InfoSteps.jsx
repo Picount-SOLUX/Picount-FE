@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // 추가
 import './InfoSteps.css';
 
 export default function InfoSteps() {
@@ -11,15 +12,17 @@ export default function InfoSteps() {
   });
   const [loading, setLoading] = useState(false);
 
+  const navigate = useNavigate(); // 페이지 이동 함수
   const user = JSON.parse(localStorage.getItem('user'));
   const nickname = user?.nickname || '회원';
 
   const handleNext = () => {
     if (step === 4) {
-      // 마지막 단계면 로딩 → 저장
+      // 마지막 단계면 로딩 → 저장 → Home으로 이동
       setLoading(true);
       setTimeout(() => {
         localStorage.setItem('userInfo', JSON.stringify(formData));
+        navigate('/home'); // Home 페이지로 이동
       }, 2000); // 2초 로딩 효과
     } else {
       setStep((prev) => prev + 1);
@@ -35,9 +38,9 @@ export default function InfoSteps() {
       const exists = prev.spendCategories.includes(category);
       const newCategories = exists
         ? prev.spendCategories.filter((c) => c !== category)
-        : prev.spendCategories.length < 6
+        : prev.spendCategories.length < 4 // 최대 4개 선택
           ? [...prev.spendCategories, category]
-          : prev.spendCategories; // 최대 4개
+          : prev.spendCategories;
       return { ...prev, spendCategories: newCategories };
     });
   };
@@ -145,7 +148,6 @@ export default function InfoSteps() {
                 {step === 4 ? '완료' : '다음'}
               </button>
             </div>
-
           </>
         ) : (
           <div className="loading-screen">
