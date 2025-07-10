@@ -1,5 +1,6 @@
 import React from "react";
 import "./Home.css";
+import Calendar from "./components/Calendar";
 
 export default function Home() {
   return (
@@ -11,9 +12,7 @@ export default function Home() {
           <h3 className="graph-title">남은 예산</h3>
           <div className="cake-graph">
             <div className="cake-placeholder">케이크 그래프</div>
-            <p className="budget-info">
-              전체 예산 000,000원 | 지출 000,000원
-            </p>
+            <p className="budget-info">전체 예산 000,000원 | 지출 000,000원</p>
             <button className="edit-btn">변경</button>
           </div>
         </div>
@@ -70,17 +69,14 @@ export default function Home() {
             <div className="guest-entry">방명록 항목</div>
           </div>
           <div className="guestbook-input">
-            <input
-              type="text"
-              placeholder="친구들에게 방명록을 남겨보자!"
-            />
+            <input type="text" placeholder="친구들에게 방명록을 남겨보자!" />
             <button className="submit-btn">➤</button>
           </div>
         </div>
 
         {/* 달력 추가 */}
         <div className="calendar-section">
-          <div className="calendar-placeholder">달력 자리</div>
+          <Calendar />
         </div>
       </section>
     </div>
