@@ -81,38 +81,40 @@ const Calendar = () => {
 
   return (
     <div className={styles.calendarContainer}>
-      <div className={styles.selectBox}>
-        <select
-          value={currentYear}
-          onChange={handleYearChange}
-          className={styles.dropdown}
-        >
-          {yearOptions.map((year) => (
-            <option key={year} value={year}>
-              {year}
-            </option>
-          ))}
-        </select>
-        <select
-          value={currentMonth}
-          onChange={handleMonthChange}
-          className={styles.dropdown}
-        >
-          {monthOptions.map((month) => (
-            <option key={month} value={month}>
-              {month + 1}
-            </option>
-          ))}
-        </select>
-      </div>
+      <div className={styles.headerRow}>
+        <div className={styles.selectBox}>
+          <select
+            value={currentYear}
+            onChange={handleYearChange}
+            className={styles.dropdown}
+          >
+            {yearOptions.map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </select>
+          <select
+            value={currentMonth}
+            onChange={handleMonthChange}
+            className={styles.dropdown}
+          >
+            {monthOptions.map((month) => (
+              <option key={month} value={month}>
+                {month + 1}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      {/* <div className={styles.header}>
-        <button onClick={handlePrevMonth}>&lt;</button>
-        <span>
-          {currentYear}년 {currentMonth + 1}월
-        </span>
-        <button onClick={handleNextMonth}>&gt;</button>
-      </div> */}
+        <div className={styles.stickerBar}>
+          <div className={styles.stickerTrack}>
+            <div className={styles.stickerItem}>🐻</div>
+            <div className={styles.stickerItem}>🌼</div>
+            <div className={styles.stickerItem}>🍓</div>
+          </div>
+        </div>
+      </div>
 
       <div className={styles.weekdays}>
         {["SUN", "MON", "TUES", "WED", "THURS", "FRI", "SAT"].map((day) => (
@@ -123,6 +125,7 @@ const Calendar = () => {
       </div>
 
       <div className={styles.days}>{renderDays()}</div>
+      <button className={styles.floatingEditBtn}>✏️</button>
     </div>
   );
 };

@@ -11,12 +11,6 @@
   font-family: "Noto Sans KR", sans-serif;
 }
 
-/* .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-} */
 .dropdown {
   appearance: none;
   -webkit-appearance: none;
@@ -24,8 +18,8 @@
 
   background-color: #f8e6d5;
   border: none;
-  border-radius: 12px;
-  padding: 6px 30px 6px 12px;
+  border-radius: 24px;
+  padding: 12px 24px 12px 12px;
   font-size: 0.85rem;
   font-weight: 500;
   width: 120px;
@@ -120,4 +114,73 @@
 }
 .day:nth-child(36) {
   border-bottom-left-radius: 12px;
+}
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+  gap: 16px;
+  width: 100%;
+}
+
+.selectBox {
+  display: flex;
+  gap: 3px;
+  margin-top: 18px;
+}
+
+.stickerBar {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0;
+  width: 100%;
+  background-color: white;
+  border-radius: 100px;
+  border: 1.5px solid #f0d4ca;
+  padding: 6px 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  min-width: 0;
+}
+
+.stickerTrack {
+  display: flex;
+  gap: 12px;
+  white-space: nowrap;
+}
+
+.stickerItem {
+  font-size: 13px;
+  padding: 2px 4px;
+  border-radius: 8px;
+  cursor: grab;
+  user-select: none;
+}
+
+.stickerItem:hover {
+  transform: scale(1.2);
+}
+
+.floatingEditBtn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background-color: #ffbebe;
+  color: #333;
+  border: none;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  font-size: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  z-index: 1000;
+  transition: background-color 0.2s ease;
+}
+
+.floatingEditBtn:hover {
+  background-color: #ff9c9c;
 }
