@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Budget.css";
 
 export default function Budget() {
-  const [categories, setCategories] = useState([
+  const defaultCategories = [
     { id: 1, name: "식비", amount: "0" },
     { id: 2, name: "교통비", amount: "0" },
     { id: 3, name: "취미", amount: "0" },
@@ -10,26 +10,27 @@ export default function Budget() {
     { id: 5, name: "고정비", amount: "0" },
     { id: 6, name: "저축", amount: "0" },
     { id: 7, name: "기타", amount: "0" },
-  ]);
+  ];
+
+  // 초기값: localStorage에 있으면 가져오고 없으면 기본값 사용
+  const [categories, setCategories] = useState(() => {
+    const saved = localStorage.getItem("budgetCategories");
+    return saved ? JSON.parse(saved) : defaultCategories;
+  });
 
   const [isEditing, setIsEditing] = useState(false);
   const [tempCategories, setTempCategories] = useState([...categories]);
 
-  const getTotalBudget = (list) =>
-    list.reduce((sum, cat) => sum + parseInt(cat.amount || 0), 0);
-
-  const totalBudget = isEditing
-    ? getTotalBudget(tempCategories)
-    : getTotalBudget(categories);
+  // 저장 시 localStorage에도 저장
+  const handleSaveClick = () => {
+    setCategories([...tempCategories]);
+    localStorage.setItem("budgetCategories", JSON.stringify(tempCategories));
+    setIsEditing(false);
+  };
 
   const handleEditClick = () => {
     setIsEditing(true);
     setTempCategories([...categories]);
-  };
-
-  const handleSaveClick = () => {
-    setCategories([...tempCategories]);
-    setIsEditing(false);
   };
 
   const handleInputChange = (id, field, value) => {
@@ -39,6 +40,13 @@ export default function Budget() {
       )
     );
   };
+
+  const getTotalBudget = (list) =>
+    list.reduce((sum, cat) => sum + parseInt(cat.amount || 0), 0);
+
+  const totalBudget = isEditing
+    ? getTotalBudget(tempCategories)
+    : getTotalBudget(categories);
 
   return (
     <div className="budget-wrapper">
