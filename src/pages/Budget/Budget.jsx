@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Budget.css";
 
 export default function Budget() {
@@ -12,7 +12,6 @@ export default function Budget() {
     { id: 7, name: "기타", amount: "0" },
   ];
 
-  // 초기값: localStorage에 있으면 가져오고 없으면 기본값 사용
   const [categories, setCategories] = useState(() => {
     const saved = localStorage.getItem("budgetCategories");
     return saved ? JSON.parse(saved) : defaultCategories;
@@ -20,17 +19,24 @@ export default function Budget() {
 
   const [isEditing, setIsEditing] = useState(false);
   const [tempCategories, setTempCategories] = useState([...categories]);
+  const [newCategory, setNewCategory] = useState({ name: "", amount: "" });
 
-  // 저장 시 localStorage에도 저장
-  const handleSaveClick = () => {
-    setCategories([...tempCategories]);
-    localStorage.setItem("budgetCategories", JSON.stringify(tempCategories));
-    setIsEditing(false);
-  };
+  const getTotalBudget = (list) =>
+    list.reduce((sum, cat) => sum + parseInt(cat.amount || 0), 0);
+
+  const totalBudget = isEditing
+    ? getTotalBudget(tempCategories)
+    : getTotalBudget(categories);
 
   const handleEditClick = () => {
     setIsEditing(true);
     setTempCategories([...categories]);
+  };
+
+  const handleSaveClick = () => {
+    setCategories([...tempCategories]);
+    localStorage.setItem("budgetCategories", JSON.stringify(tempCategories));
+    setIsEditing(false);
   };
 
   const handleInputChange = (id, field, value) => {
@@ -41,12 +47,26 @@ export default function Budget() {
     );
   };
 
-  const getTotalBudget = (list) =>
-    list.reduce((sum, cat) => sum + parseInt(cat.amount || 0), 0);
+  // ✅ 카테고리 추가
+  const handleAddCategory = () => {
+    if (!newCategory.name.trim()) return;
+    const nextId =
+      tempCategories.length > 0
+        ? Math.max(...tempCategories.map((c) => c.id)) + 1
+        : 1;
+    const newCat = {
+      id: nextId,
+      name: newCategory.name,
+      amount: newCategory.amount || "0",
+    };
+    setTempCategories([...tempCategories, newCat]);
+    setNewCategory({ name: "", amount: "" });
+  };
 
-  const totalBudget = isEditing
-    ? getTotalBudget(tempCategories)
-    : getTotalBudget(categories);
+  // ✅ 카테고리 삭제
+  const handleDeleteCategory = (id) => {
+    setTempCategories((prev) => prev.filter((cat) => cat.id !== id));
+  };
 
   return (
     <div className="budget-wrapper">
@@ -73,7 +93,9 @@ export default function Budget() {
               );
             })}
           </div>
-          <div className="graph-total">총예산: {totalBudget.toLocaleString()}원</div>
+          <div className="graph-total">
+            총예산: {totalBudget.toLocaleString()}원
+          </div>
         </div>
       </section>
 
@@ -82,7 +104,6 @@ export default function Budget() {
         <div className="detail-header">
           <h2 className="section-title">세부 예산</h2>
 
-          {/* 같은 위치에 수정/저장 버튼 */}
           {!isEditing ? (
             <button className="edit-btn" onClick={handleEditClick}>
               ✏️ 수정
@@ -112,14 +133,23 @@ export default function Budget() {
                       }
                       className="category-input name-input"
                     />
-                    <input
-                      type="number"
-                      value={cat.amount}
-                      onChange={(e) =>
-                        handleInputChange(cat.id, "amount", e.target.value)
-                      }
-                      className="category-input amount-input"
-                    />
+                    <div className="category-controls">
+                      <input
+                        type="number"
+                        value={cat.amount}
+                        onChange={(e) =>
+                          handleInputChange(cat.id, "amount", e.target.value)
+                        }
+                        className="category-input amount-input"
+                      />
+                      <button
+                        className="delete-btn"
+                        onClick={() => handleDeleteCategory(cat.id)}
+                        title="삭제"
+                      >
+                        삭제
+                      </button>
+                    </div>
                   </>
                 ) : (
                   <>
@@ -133,8 +163,44 @@ export default function Budget() {
                   </>
                 )}
               </div>
+
             );
           })}
+
+          {/* 수정 모드일 때만 추가 행 */}
+          {isEditing && (
+            <div className="category-item add-category-row">
+              <input
+                type="text"
+                value={newCategory.name}
+                placeholder="새 카테고리 이름"
+                onChange={(e) =>
+                  setNewCategory({ ...newCategory, name: e.target.value })
+                }
+                className="category-input name-input"
+              />
+              {/* 🆕 오른쪽 컨트롤 묶기 */}
+              <div className="category-controls">
+                <input
+                  type="number"
+                  value={newCategory.amount}
+                  placeholder="금액"
+                  onChange={(e) =>
+                    setNewCategory({ ...newCategory, amount: e.target.value })
+                  }
+                  className="category-input amount-input"
+                />
+                <button
+                  className="add-btn"
+                  onClick={handleAddCategory}
+                  title="카테고리 추가"
+                >
+                  추가
+                </button>
+              </div>
+            </div>
+
+          )}
         </div>
       </section>
     </div>
